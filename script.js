@@ -2,7 +2,7 @@
 const words = ['car', 'castle', 'umbrella', 'scissors', 'train', 'sun']
 
 //Alfabēts
-var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
         'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
         't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
@@ -11,7 +11,7 @@ newGame = document.createElement("button");
 newGame.innerHTML = "Jauns vārds";
 newGame.setAttribute("id", "newGame");
 newGame.setAttribute("onclick", "newWord()");
-document.body.appendChild(newGame);
+document.getElementById("alphabet").appendChild(newGame);
 
 // Alfabēta pogas
 for (letter of alphabet) {
@@ -20,19 +20,17 @@ for (letter of alphabet) {
   button.setAttribute("class", "letterButton");
   button.innerHTML = letter;
   button.setAttribute("onclick", "tryLetter(this.id)")
-  document.body.appendChild(button);
+  document.getElementById("alphabet").appendChild(button);
 }
 
 var word;
 var guessedLetters;
 var lives;
-var table = document.createElement("table");
-var row = document.createElement("tr");
-var message = document.createElement("h3");
+const message = document.getElementById("text");
 
 // Nodzēš esošo vārdu
 function removeCurrentWord() {
-  var cells = document.querySelectorAll("td");
+  const cells = document.querySelectorAll("td");
   if (cells.length > 0) {
     for (cell of cells) {
       cell.remove();
@@ -43,7 +41,7 @@ function removeCurrentWord() {
 // Jauns vārds
 function newWord() {
   //Aktivizē burtu pogas
-  var buttons = document.getElementsByClassName("letterButton");
+  const buttons = document.getElementsByClassName("letterButton");
   for (button of buttons) {
     button.style.visibility = "visible";
     button.disabled = false;
@@ -54,14 +52,11 @@ function newWord() {
   for (letter in word) {
     letterBox = document.createElement("td");
     letterBox.setAttribute("id", letter);
-    row.appendChild(letterBox);
+    document.getElementById("word").appendChild(letterBox);
   }
-  table.appendChild(row);
-  document.body.appendChild(table);
   guessedLetters = 0
   lives = 10
   message.innerHTML = "Atlikušās dzīvības: " + lives;
-  document.body.appendChild(message);
 }
 
 // Burta izvēle
@@ -85,7 +80,7 @@ function tryLetter(chosenLetter) {
 
 //Deaktivizē burtu pogas
 function disableButtons() {
-  var buttons = document.getElementsByClassName("letterButton");
+  const buttons = document.getElementsByClassName("letterButton");
   for (button of buttons) {
     button.disabled = true;
   }
