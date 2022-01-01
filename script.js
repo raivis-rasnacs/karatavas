@@ -26,6 +26,7 @@ for (letter of alphabet) {
 var word;
 var guessedLetters;
 var lives;
+var hangmanState;
 const message = document.getElementById("text");
 
 // Nodzēš esošo vārdu
@@ -47,6 +48,8 @@ function newWord() {
     button.disabled = false;
   }
 
+  document.getElementById("hangman").src = "images/"+1+".png";
+  hangmanState = 1;
   removeCurrentWord();
   word = words[Math.floor(Math.random()*words.length)]
   for (letter in word) {
@@ -73,6 +76,7 @@ function tryLetter(chosenLetter) {
   if (guessedLetters == word.length) { message.innerHTML = "Tu atminēji!"; disableButtons(); }
   if (letterFound == false) {
   lives -= 1;
+  drawHangman();
   message.innerHTML = "Atlikušās dzīvības: " + lives;
   }
   if (lives == 0) { message.innerHTML = "Tu zaudēji!"; disableButtons(); }
@@ -84,4 +88,9 @@ function disableButtons() {
   for (button of buttons) {
     button.disabled = true;
   }
+}
+
+function drawHangman() {
+  hangmanState += 1;
+  document.getElementById("hangman").src = "images/"+hangmanState+".png";
 }
